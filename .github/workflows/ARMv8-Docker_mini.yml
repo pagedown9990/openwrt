@@ -1,4 +1,4 @@
-name: test
+name: ARMv8-Docker_mini
 
 on:
   repository_dispatch:
@@ -8,14 +8,14 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
- # schedule:
-  #  - cron: 0 16 * * *
+  schedule:
+    - cron: 0 16 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: ARMv8/test.config
+  CONFIG_FILE: ARMv8/ARMv8-Docker-mini.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   DOCKER_BUILD_SH: buildImage.sh
@@ -25,8 +25,8 @@ env:
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: test
-  PRODUCT_NAME: test
+  FILE_NAME: ARMv8-Docker-mini
+  PRODUCT_NAME: ARMv8-Docker-mini
 
 jobs:
   build:
@@ -141,9 +141,9 @@ jobs:
         ./$DOCKER_BUILD_SH
         gzip -dc dockerimgs/docker/*.gz | docker load
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
-        docker tag hibuddies/openwrt-aarch64 hibuddies/openwrt-aarch64-micro
-        docker tag hibuddies/openwrt-aarch64-micro hibuddies/openwrt-aarch64-micro:${{ env.DATE_YMD }}
-        docker push hibuddies/openwrt-aarch64-micro
+        docker tag hibuddies/openwrt-aarch64 hibuddies/openwrt-aarch64-mini
+        docker tag hibuddies/openwrt-aarch64-mini hibuddies/openwrt-aarch64-mini:${{ env.DATE_YMD }}
+        docker push hibuddies/openwrt-aarch64-mini
         echo "::set-output name=status::success"
 
     - name: Telegram notification
