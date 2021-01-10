@@ -151,7 +151,9 @@ jobs:
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp
         sudo rm -rf *.xz
-        sudo xz -z *.img
+        sudo rm N1_*\+.*
+        sudo xz -zk *.img
+        sudo rm N1_*\+o.img
         sudo rm btld-rk3328.bin
         wget https://github.com/hibuddies/openwrt/releases/download/ARMv8-mini-sfe/AllPackages.tar.gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
@@ -175,6 +177,13 @@ jobs:
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:+o版为flowoffload加速,+版为sfe加速)
           下面的sh脚本是固件升级使用
+          除N1外其他机型在线升级方法：
+             1. 贝壳云、我家云、微加云：cd /mnt/mmcblk0p4
+               S903×3、S922x：cd /mnt/mmcblk2p4
+             2. wget 升级脚本链接
+             3. wget img后缀名的固件链接
+             4. chmod +x *.sh
+             5. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Telegram notification
