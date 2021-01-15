@@ -60,6 +60,7 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         echo "dibao_sfe=${{ secrets.dibao_mini_sfe }}"  >> $GITHUB_ENV
         echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
+        echo "getimgs=${{ secrets.getimgs }}"  >> $GITHUB_ENV
 
     - name: Clone source code
       working-directory: /workdir
@@ -80,7 +81,8 @@ jobs:
       run: |
         cd /opt
         sudo rm -rf Armbian_*
-        chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
+        sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
+        sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
@@ -92,9 +94,12 @@ jobs:
         sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
         cd /opt/openwrt
+        sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
         sudo wget $dibao_sfe
-        sudo mv openwrt-armvirt-64-default-rootfs.tar.gz sfe-openwrt-armvirt-64-default-rootfs.tar.gz
+        cd ..
+        sudo mkdir flowoffload && cd flowoffload
+        sudo rm -rf openwrt-armvirt-64-*
         sudo wget $dibao_o
 
     - name: autoVersion
