@@ -109,6 +109,8 @@ jobs:
         cd /opt/openwrt
         chmod +x $GITHUB_WORKSPACE/$Update_Ver_SH
         sudo $GITHUB_WORKSPACE/$Update_Ver_SH
+        #sudo sed -i "/CPU usage/a\+               \<tr><td\ \width=\"33%\"\> 使用帮助\ <\/td><td>点击直达F大帖子：<a href=\"https://www.right.com.cn/forum/thread-4055451-1-1.html\">\ ➦新帖 \</a> 和 <a href=\"https://www.right.com.cn/forum/thread-981406-1-1.html\">\ ➦旧帖 \</a></td></tr>" files/luci-admin-status-index-html.patch
+        #sudo cat files/luci-admin-status-index-html.patch
 
     - name: Check Files1
       run: |
