@@ -50,6 +50,7 @@ jobs:
         sudo -E apt-get -qq install rename
         sudo -E apt-get -qq install time
         sudo -E apt-get -qq install sshpass
+        sudo -E apt-get -qq install pigz
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -120,34 +121,29 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
-        sudo ./mk_n1_opimg.sh
-        #sudo ./mk_n1_opimg_sfe.sh
+        sudo ./mk_s905d_n1.sh
+        #sudo ./mk_s905d_n1_sfe.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
       run: |
         cd /opt/openwrt
-        #sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
-        #sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
-        sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
-        #sudo cp files/s905x3/update-s905x3-openwrt.sh tmp/z-update-s905x3-openwrt.sh
-        #sudo cp files/s922x/update-s922x-openwrt.sh tmp/z-update-s922x-openwrt.sh
-        #sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
+        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
 
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
-        rename 's/N1/${{ env.DATE1 }}-gdq-N1/' N1*img
+        rename 's/openwrt_s905d_n1/${{ env.DATE1 }}-gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
         ls
 
-    - name: xz-z
-      id: xz
+    - name: pigz -9
+      id: pigz
       run: |
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp
-        sudo rm -rf *.xz
+        sudo rm -rf *.gz
         #sudo rm N1_*\+.*
-        sudo xz -z *.img
+        sudo pigz -9 *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
         #rename 's/N1/${{ env.DATE1 }}-gdq-N1/' N1*xz
@@ -194,6 +190,7 @@ jobs:
         sudo -E apt-get -qq install rename
         sudo -E apt-get -qq install time
         sudo -E apt-get -qq install sshpass
+        sudo -E apt-get -qq install pigz
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -264,34 +261,24 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
-        sudo ./mk_n1_opimg.sh
-        #sudo ./mk_n1_opimg_sfe.sh
+        sudo ./mk_s905d_n1.sh
+        #sudo ./mk_s905d_n1_sfe.sh
         echo "::set-output name=status::success"
-
-    - name: copy update files
-      run: |
-        cd /opt/openwrt
-        #sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
-        #sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
-        #sudo cp files/update-to-emmc.sh tmp/z-update-to-emmc.sh
-        #sudo cp files/s905x3/update-s905x3-openwrt.sh tmp/z-update-s905x3-openwrt.sh
-        #sudo cp files/s922x/update-s922x-openwrt.sh tmp/z-update-s922x-openwrt.sh
-        #sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
 
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
-        rename 's/N1/${{ env.DATE1 }}-mini-N1/' N1*img
+        rename 's/openwrt_s905d_n1/${{ env.DATE1 }}-mini-openwrt_s905d_n1/' openwrt_s905d_n1*img
         ls
 
-    - name: xz-z
-      id: xz
+    - name: pigz -9
+      id: pigz
       run: |
         sudo chmod  -R 777 /opt/openwrt/tmp
         cd /opt/openwrt/tmp
-        sudo rm -rf *.xz
+        sudo rm -rf *.gz
         #sudo rm N1_*\+.*
-        sudo xz -z *.img
+        sudo pigz -9 *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
         #rename 's/N1/${{ env.DATE1 }}-mini-N1/' N1*xz

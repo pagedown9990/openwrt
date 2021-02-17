@@ -5,7 +5,7 @@
 ## 说明
 - 基于***flippy大***的固件打包脚本，适配的机型有：***贝壳云***、***我家云***、***N1***、***S905x3（包括常见的hk1、h96、x96等盒子）***、***s922x（目前支持GT-King、GT-King Pro两款盒子）***、***微加云*** 等！
 - releases中的直刷固件分为[***精简版***](https://github.com/hibuddies/openwrt/releases/tag/Z-ARMv8-mini) 和[***高大全版***](https://github.com/hibuddies/openwrt/releases/tag/Z-ARMv8-gdq)，精简版主要适合科学上网为主要需求的用户，高大全版用的是f大的配置文件，+o版是flowoffload加速,+版是sfe加速！
-- Docker固件：`docker pull hibuddies/openwrt-aarch64:latest`，精简版：`docker pull hibuddies/openwrt-aarch64-mini:latest`，极致精简版无任何服务：`docker pull hibuddies/openwrt-aarch64-micro:latest`
+- Docker固件：`docker pull hibuddies/openwrt-aarch64:latest`，精简版：`docker pull hibuddies/openwrt-aarch64-mini:latest`
 - 固件默认IP：`192.168.1.1` 默认密码：`password`
 - 刷机和升级方法请参考f大这两个帖子：[➦旧帖](https://www.right.com.cn/forum/thread-981406-1-1.html) 和 [➦新帖](https://www.right.com.cn/forum/thread-4055451-1-1.html)
 - 精简版固件包含的插件预览：
