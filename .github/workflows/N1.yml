@@ -143,7 +143,7 @@ jobs:
         cd /opt/openwrt/tmp
         sudo rm -rf *.gz
         #sudo rm N1_*\+.*
-        sudo pigz -9 *.img
+        sudo pigz -9 -k *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
         #rename 's/N1/${{ env.DATE1 }}-gdq-N1/' N1*xz
@@ -170,6 +170,12 @@ jobs:
           ## 鉴于N1用户群庞大，特单独开此release
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:gdq是高大全版和f大固件集成软件相差无几，mini是精简版。+o版为flowoffload加速,+版为sfe加速)
+          N1在线升级方法：
+             1. cd /mnt/mmcblk2p4
+             2. wget 升级脚本链接,鼠标右击后缀.sh文件获取链接地址
+             3. wget img后缀名的固件链接,鼠标右击后缀.img文件获取链接地址
+             4. chmod +x *.sh
+             5. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
 
 
@@ -278,7 +284,7 @@ jobs:
         cd /opt/openwrt/tmp
         sudo rm -rf *.gz
         #sudo rm N1_*\+.*
-        sudo pigz -9 *.img
+        sudo pigz -9 -k *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
         #rename 's/N1/${{ env.DATE1 }}-mini-N1/' N1*xz
@@ -303,6 +309,12 @@ jobs:
           ## 鉴于N1用户群庞大，特单独开此release
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:gdq是高大全版和f大固件集成软件相差无几，mini是精简版。+o版为flowoffload加速,+版为sfe加速)
+          N1在线升级方法：
+             1. cd /mnt/mmcblk2p4
+             2. wget 升级脚本链接,鼠标右击后缀.sh文件获取链接地址
+             3. wget img后缀名的固件链接,鼠标右击后缀.img文件获取链接地址
+             4. chmod +x *.sh
+             5. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
 
 
