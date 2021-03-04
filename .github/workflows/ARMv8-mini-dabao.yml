@@ -130,8 +130,8 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
-        sudo ./openwrtmk_h6_vplus_sfe.sh
-        sudo ./openwrtmk_h6_vplus.sh
+        sudo ./mk_h6_vplus_sfe.sh
+        sudo ./mk_h6_vplus.sh
         sudo ./mk_rk3328_beikeyun_sfe.sh
         sudo ./mk_rk3328_beikeyun.sh
         sudo ./mk_rk3328_l1pro_sfe.sh
