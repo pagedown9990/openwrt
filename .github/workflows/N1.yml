@@ -84,10 +84,10 @@ jobs:
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
+        sudo xz -d Armbian*Aml*\+\.img\.xz
+        sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
-        #sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
@@ -121,8 +121,8 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
+        sudo ./mk_s905d_n1_sfe.sh
         sudo ./mk_s905d_n1.sh
-        #sudo ./mk_s905d_n1_sfe.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
@@ -230,10 +230,10 @@ jobs:
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
+        sudo xz -d Armbian*Aml*\+\.img\.xz
+        sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
-        #sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
         sudo mv *.img imgs
@@ -267,8 +267,8 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
+        sudo ./mk_s905d_n1_sfe.sh
         sudo ./mk_s905d_n1.sh
-        #sudo ./mk_s905d_n1_sfe.sh
         echo "::set-output name=status::success"
 
     - name: Check Files3
