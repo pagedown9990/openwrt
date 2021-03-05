@@ -134,8 +134,8 @@ jobs:
         sudo ./mk_rk3328_l1pro.sh
         sudo ./mk_s905d_n1_sfe.sh
         sudo ./mk_s905d_n1.sh
-        sudo ./mk_s905x2_x96max_sfe.sh
-        sudo ./mk_s905x2_x96max.sh
+        #sudo ./mk_s905x2_x96max_sfe.sh
+        #sudo ./mk_s905x2_x96max.sh
         sudo ./mk_s905x3_multi_sfe.sh
         sudo ./mk_s905x3_multi.sh
         sudo ./mk_s912_zyxq_sfe.sh
