@@ -140,8 +140,8 @@ jobs:
         sudo ./mk_s905x3_multi.sh
         sudo ./mk_s912_zyxq_sfe.sh
         sudo ./mk_s912_zyxq.sh
-        sudo ./mk_s922x_gtking_sfe.sh
-        sudo ./mk_s922x_gtking.sh
+        #sudo ./mk_s922x_gtking_sfe.sh
+        #sudo ./mk_s922x_gtking.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
