@@ -134,6 +134,7 @@ jobs:
       run: |
         cd /opt/openwrt/tmp
         #rename 's/openwrt_s905d_n1/${{ env.DATE1 }}-gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
+        rename 's/openwrt_s905d_n1/gdq-openwrt_s905d_n1/' openwrt_s905d_n1*img
         ls
 
     - name: pigz -9
@@ -274,6 +275,7 @@ jobs:
       run: |
         cd /opt/openwrt/tmp
         #rename 's/openwrt_s905d_n1/${{ env.DATE1 }}-mini-openwrt_s905d_n1/' openwrt_s905d_n1*img
+        rename 's/openwrt_s905d_n1/mini-openwrt_s905d_n1/' openwrt_s905d_n1*img
         ls
 
     - name: pigz -9
