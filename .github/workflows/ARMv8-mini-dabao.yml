@@ -91,12 +91,14 @@ jobs:
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo tar xvzf *.tar.gz
         sudo mkdir imgs
-        sudo xz -d Armbian*Beike*\+\.img\.xz
-        sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*Aml*\+\.img\.xz
         sudo xz -d Armbian*Aml*\+o*
+        sudo xz -d Armbian*Beike*\+\.img\.xz
+        sudo xz -d Armbian*Beike*\+o*
         sudo xz -d Armbian*L1*\+\.img\.xz
         sudo xz -d Armbian*L1*\+o*
+        sudo xz -d Armbian*VPlus*\+\.img\.xz
+        sudo xz -d Armbian*VPlus*\+o*
         sudo mv *.img imgs
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
@@ -128,20 +130,22 @@ jobs:
       run: |
         cd /opt/openwrt
         sudo chmod +x *.sh
-        sudo ./mk_rk3328_beikeyun.sh
+        sudo ./mk_h6_vplus_sfe.sh
+        sudo ./mk_h6_vplus.sh
         sudo ./mk_rk3328_beikeyun_sfe.sh
-        sudo ./mk_rk3328_l1pro.sh
+        sudo ./mk_rk3328_beikeyun.sh
         sudo ./mk_rk3328_l1pro_sfe.sh
-        sudo ./mk_s905d_n1.sh
+        sudo ./mk_rk3328_l1pro.sh
         sudo ./mk_s905d_n1_sfe.sh
-        sudo ./mk_s905x3_multi.sh
+        sudo ./mk_s905d_n1.sh
+        #sudo ./mk_s905x2_x96max_sfe.sh
+        #sudo ./mk_s905x2_x96max.sh
         sudo ./mk_s905x3_multi_sfe.sh
-        sudo ./mk_s912_zyxq.sh
+        sudo ./mk_s905x3_multi.sh
         sudo ./mk_s912_zyxq_sfe.sh
-        sudo ./mk_s922x_gtking.sh
-        sudo ./mk_s922x_gtking_sfe.sh
-        sudo ./n1-to-vplus.sh
-        sudo ./n1-to-vplus_sfe.sh
+        sudo ./mk_s912_zyxq.sh
+        #sudo ./mk_s922x_gtking_sfe.sh
+        #sudo ./mk_s922x_gtking.sh
         echo "::set-output name=status::success"
 
     - name: copy update files

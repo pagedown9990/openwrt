@@ -108,6 +108,7 @@ jobs:
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
         docker tag hibuddies/openwrt-aarch64 hibuddies/openwrt-aarch64:${{ env.TAG }}
         docker push hibuddies/openwrt-aarch64
+        docker push hibuddies/openwrt-aarch64:${{ env.TAG }}
         echo "::set-output name=status::success"
 
     - name: 编译后硬盘容量

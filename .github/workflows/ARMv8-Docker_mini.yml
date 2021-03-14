@@ -109,6 +109,7 @@ jobs:
         docker tag hibuddies/openwrt-aarch64 hibuddies/openwrt-aarch64-mini
         docker tag hibuddies/openwrt-aarch64-mini hibuddies/openwrt-aarch64-mini:${{ env.TAG }}
         docker push hibuddies/openwrt-aarch64-mini
+        docker push hibuddies/openwrt-aarch64-mini:${{ env.TAG }}
         echo "::set-output name=status::success"
 
     - name: 编译后硬盘容量
