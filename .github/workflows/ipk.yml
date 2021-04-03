@@ -173,7 +173,7 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }}
+        name: ${{ env.DATE }} 一些常用ipk
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
