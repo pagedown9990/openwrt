@@ -164,7 +164,8 @@ jobs:
         cd /opt/openwrt/tmp
         sudo rm -rf *.gz
         #sudo rm N1_*\+.*
-        sudo pigz -9 -k *.img
+        #sudo pigz -9 -k *.img
+        sudo pigz -9 *.img
         #sudo rm N1_*\+o.img
         sudo rm btld-rk3328.bin
         wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
@@ -193,9 +194,10 @@ jobs:
              1. 贝壳云、我家云、微加云：cd /mnt/mmcblk0p4
                N1、S903×3、S922x：cd /mnt/mmcblk2p4
              2. wget 升级脚本链接
-             3. wget img后缀名的固件链接
-             4. chmod +x *.sh
-             5. ./升级脚本名字 img固件名
+             3. wget 固件链接
+             4. gzip -d 上一步下载的固件全名
+             5. chmod +x *.sh
+             6. ./升级脚本名字 img固件名
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Telegram notification
