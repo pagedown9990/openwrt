@@ -18,7 +18,7 @@ env:
   CONFIG_FILE: ARMv8/ARMv8-Docker.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  DOCKER_BUILD_SH: buildImage.sh
+  DOCKER_BUILD_SH: buildImageX.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
@@ -94,6 +94,20 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+    - name: CheckEnv
+      working-directory: /workdir
+      run: |
+        echo "docker buildx version"
+        docker buildx version
+        echo "ls -l /proc/sys/fs/binfmt_misc"
+        ls -l /proc/sys/fs/binfmt_misc
+        echo "docker run --privileged --rm tonistiigi/binfmt --install all"
+        docker run --privileged --rm tonistiigi/binfmt --install all
+        echo "ls -l /proc/sys/fs/binfmt_misc"
+        ls -l /proc/sys/fs/binfmt_misc
+        echo "docker buildx ls"
+        docker buildx ls
 
     - name: Build and push docker image
       id: docker
