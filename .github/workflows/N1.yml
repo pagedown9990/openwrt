@@ -77,20 +77,24 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
-        cd /opt
-        sudo rm -rf Armbian_*
+        #cd /opt
+        sudo mkdir /opt/kernel
+        cd /opt/kernel
+        #sudo rm -rf Armbian_*
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo tar xvzf *.tar.gz
-        sudo mkdir imgs
-        sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
+        #sudo tar xvzf *.tar.gz
+        #sudo mkdir imgs
+        #sudo xz -d Armbian*Aml*\+\.img\.xz
+        #sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
-        sudo mv *.img imgs
+        #sudo mv *.img imgs
+        sudo cp mk_*.tar.gz ../ && cd ..
+        sudo tar xvzf mk_*.tar.gz
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
@@ -225,20 +229,24 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
-        cd /opt
-        sudo rm -rf Armbian_*
+        #cd /opt
+        sudo mkdir /opt/kernel
+        cd /opt/kernel
+        #sudo rm -rf Armbian_*
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo tar xvzf *.tar.gz
-        sudo mkdir imgs
-        sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
+        #sudo tar xvzf *.tar.gz
+        #sudo mkdir imgs
+        #sudo xz -d Armbian*Aml*\+\.img\.xz
+        #sudo xz -d Armbian*Aml*\+o*
         #sudo xz -d Armbian*Beike*\+\.img\.xz
         #sudo xz -d Armbian*Beike*\+o*
         #sudo xz -d Armbian*L1*\+\.img\.xz
         #sudo xz -d Armbian*L1*\+o*
-        sudo mv *.img imgs
+        #sudo mv *.img imgs
+        sudo cp mk_*.tar.gz ../ && cd ..
+        sudo tar xvzf mk_*.tar.gz
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
