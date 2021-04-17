@@ -1,4 +1,4 @@
-name: ARMv8_Docker
+name: ARMv8-Docker-21_02
 
 on:
   repository_dispatch:
@@ -18,15 +18,15 @@ env:
   CONFIG_FILE: ARMv8/ARMv8-Docker.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  DOCKER_BUILD_SH: buildImageX.sh
+  DOCKER_BUILD_SH: buildImageX-21_02.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8-Docker
-  PRODUCT_NAME: ARMv8-Docker
+  FILE_NAME: ARMv8-Docker-21.02
+  PRODUCT_NAME: ARMv8-Docker-21.02
 
 jobs:
   build:
@@ -49,7 +49,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        echo "dibao=${{ secrets.dibao_docker_gdq }}"  >> $GITHUB_ENV
+        echo "dibao=${{ secrets.dibao_docker_21_02 }}"  >> $GITHUB_ENV
 
     - name: 编译前硬盘容量
       if: (!cancelled())
@@ -120,9 +120,9 @@ jobs:
         ./$DOCKER_BUILD_SH
         gzip -dc dockerimgs/docker/*.gz | docker load
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
-        docker tag hibuddies/openwrt-aarch64 hibuddies/openwrt-aarch64:${{ env.TAG }}
-        docker push hibuddies/openwrt-aarch64
-        docker push hibuddies/openwrt-aarch64:${{ env.TAG }}
+        #docker tag hibuddies/openwrt-aarch64 hibuddies/openwrt-aarch64:${{ env.TAG }}
+        docker push hibuddies/openwrt-aarch64-21.02
+        #docker push hibuddies/openwrt-aarch64:${{ env.TAG }}
         echo "::set-output name=status::success"
 
     - name: 编译后硬盘容量

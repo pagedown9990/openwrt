@@ -18,7 +18,7 @@ env:
   CONFIG_FILE: ARMv8/ARMv8-Docker-mini.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  DOCKER_BUILD_SH: buildImage.sh
+  DOCKER_BUILD_SH: buildImageX-mini.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
@@ -49,7 +49,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        echo "dibao_o=${{ secrets.dibao_mini_o }}"  >> $GITHUB_ENV
+        echo "dibao=${{ secrets.dibao_docker_mini }}"  >> $GITHUB_ENV
 
     - name: 编译前硬盘容量
       if: (!cancelled())
@@ -95,13 +95,27 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
+    - name: CheckEnv
+      working-directory: /workdir
+      run: |
+        echo "docker buildx version"
+        docker buildx version
+        echo "ls -l /proc/sys/fs/binfmt_misc"
+        ls -l /proc/sys/fs/binfmt_misc
+        echo "docker run --privileged --rm tonistiigi/binfmt --install all"
+        docker run --privileged --rm tonistiigi/binfmt --install all
+        echo "ls -l /proc/sys/fs/binfmt_misc"
+        ls -l /proc/sys/fs/binfmt_misc
+        echo "docker buildx ls"
+        docker buildx ls
+
     - name: Build and push docker image
       id: docker
       #if: steps.organize.outputs.status == 'success' && !cancelled()
       run: |
         cd $GITHUB_WORKSPACE/docker/
         sudo rm -rf openwrt-armvirt-64-*
-        sudo wget $dibao_o
+        sudo wget $dibao
         chmod +x $DOCKER_BUILD_SH
         ./$DOCKER_BUILD_SH
         gzip -dc dockerimgs/docker/*.gz | docker load
