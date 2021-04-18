@@ -89,8 +89,13 @@ jobs:
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo cp mk_*.tar.gz ../ && cd ..
-        sudo tar xvzf mk_*.tar.gz
+        #sudo cp mk_*.tar.gz ../ && cd ..
+        #sudo tar xvzf mk_*.tar.gz
+        cd ..
+        git clone https://github.com/unifreq/openwrt_packit openwrt
+        sudo cp -r $GITHUB_WORKSPACE/ARMv8/respawn_mks.sh ./
+        sudo chmod +x respawn_mks.sh
+        sudo ./respawn_mks.sh
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
@@ -127,16 +132,16 @@ jobs:
         sudo ./mk_rk3328_beikeyun.sh
         sudo ./mk_rk3328_l1pro_sfe.sh
         sudo ./mk_rk3328_l1pro.sh
-        sudo ./mk_s905d_n1_sfe.sh
-        sudo ./mk_s905d_n1.sh
-        #sudo ./mk_s905x2_x96max_sfe.sh
-        #sudo ./mk_s905x2_x96max.sh
+        #sudo ./mk_s905d_n1_sfe.sh
+        #sudo ./mk_s905d_n1.sh
+        sudo ./mk_s905x2_x96max_sfe.sh
+        sudo ./mk_s905x2_x96max.sh
         sudo ./mk_s905x3_multi_sfe.sh
         sudo ./mk_s905x3_multi.sh
         sudo ./mk_s912_zyxq_sfe.sh
         sudo ./mk_s912_zyxq.sh
-        #sudo ./mk_s922x_gtking_sfe.sh
-        #sudo ./mk_s922x_gtking.sh
+        sudo ./mk_s922x_gtking_sfe.sh
+        sudo ./mk_s922x_gtking.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
