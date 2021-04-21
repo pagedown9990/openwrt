@@ -147,6 +147,8 @@ jobs:
         rm -rf *
         ls -lah
         cd -
+        cp openwrt/.config openwrt/ipk.config
+        cp openwrt/ipk.config openwrt/bin/targets/*/*
         cp -r openwrt/bin/packages/*/base/luci-app-ssr-plus* openwrt/bin/packages/*/base/luci-i18n-ssr-plus* openwrt/bin/packages/*/base/luci-app-passwall* openwrt/bin/packages/*/base/luci-app-vssr* openwrt/bin/packages/*/base/luci-app-bypass* openwrt/bin/packages/*/base/luci-app-openclash* openwrt/bin/packages/*/base/xray-core* openwrt/bin/targets/*/*
         cd openwrt/bin/targets/*/*
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
