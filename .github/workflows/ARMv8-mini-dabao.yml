@@ -155,6 +155,7 @@ jobs:
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
+        rename 's/openwrt/mini-openwrt/' openwrt*img
         ls
 
     - name: pigz -9
