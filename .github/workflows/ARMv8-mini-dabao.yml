@@ -147,10 +147,10 @@ jobs:
     - name: copy update files
       run: |
         cd /opt/openwrt
-        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
-        sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
-        sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
-        sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
+        sudo cp files/update-amlogic-openwrt.sh tmp/update-amlogic-openwrt.sh
+        sudo cp files/update-beikeyun-openwrt.sh tmp/update-beikeyun-openwrt.sh
+        sudo cp files/update-l1pro-openwrt.sh tmp/update-l1pro-openwrt.sh
+        sudo cp files/update-vplus-openwrt.sh tmp/update-vplus-openwrt.sh
 
     - name: Check Files3
       run: |
