@@ -151,6 +151,7 @@ jobs:
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
+        rename 's/openwrt/gdq-openwrt/' openwrt*img
         ls
 
     - name: pigz -9
