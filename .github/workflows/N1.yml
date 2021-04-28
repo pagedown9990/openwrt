@@ -126,7 +126,7 @@ jobs:
     - name: copy update files
       run: |
         cd /opt/openwrt
-        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
+        sudo cp files/update-amlogic-openwrt.sh tmp/update-amlogic-openwrt.sh
 
     - name: Check Files3
       run: |
@@ -147,7 +147,7 @@ jobs:
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
         wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-flowoffload/AllPackages.tar.gz
-        rename 's/All/1-All/' All*gz
+        #rename 's/All/1-All/' All*gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
