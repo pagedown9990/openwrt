@@ -69,7 +69,7 @@ jobs:
 
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.status == 'success' && !cancelled()
+      #if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
         cd /tmp
         sudo wget $Transfer
