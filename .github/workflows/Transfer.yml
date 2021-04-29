@@ -71,7 +71,7 @@ jobs:
       id: organize
       #if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-        cd /tmp
+        cd /opt
         sudo wget $Transfer
         ls -lah
         sudo chmod +x Transfer.sh
