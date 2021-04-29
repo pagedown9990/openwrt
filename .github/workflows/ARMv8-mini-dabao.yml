@@ -89,13 +89,13 @@ jobs:
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        #sudo cp mk_*.tar.gz ../ && cd ..
-        #sudo tar xvzf mk_*.tar.gz
-        cd ..
-        git clone https://github.com/unifreq/openwrt_packit openwrt
-        sudo cp -r $GITHUB_WORKSPACE/ARMv8/respawn_mks.sh ./
-        sudo chmod +x respawn_mks.sh
-        sudo ./respawn_mks.sh
+        sudo cp mk_*.tar.gz ../ && cd ..
+        sudo tar xvzf mk_*.tar.gz
+        #cd ..
+        #git clone https://github.com/unifreq/openwrt_packit openwrt
+        #sudo cp -r $GITHUB_WORKSPACE/ARMv8/respawn_mks.sh ./
+        #sudo chmod +x respawn_mks.sh
+        #sudo ./respawn_mks.sh
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
