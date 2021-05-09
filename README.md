@@ -17,7 +17,7 @@
 
 ## 感谢
 
-- flippy大
+- [flippy](https://github.com/unifreq/openwrt_packit)
 - [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 - [Microsoft Azure](https://azure.microsoft.com)
 - [GitHub Actions](https://github.com/features/actions)

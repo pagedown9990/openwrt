@@ -12,8 +12,8 @@ on:
         description: 'The minimum runs to keep for each workflow.'
         required: true
         default: 6
- # schedule:
-  #  - cron: 0 23 * * *
+  schedule:
+    - cron: 0 23 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -77,20 +77,18 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
-        cd /opt
-        sudo rm -rf Armbian_*
+        sudo mkdir /opt/kernel
+        cd /opt/kernel
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo tar xvzf *.tar.gz
-        sudo mkdir imgs
-        sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
-        #sudo xz -d Armbian*Beike*\+\.img\.xz
-        #sudo xz -d Armbian*Beike*\+o*
-        #sudo xz -d Armbian*L1*\+\.img\.xz
-        #sudo xz -d Armbian*L1*\+o*
-        sudo mv *.img imgs
+        #sudo cp mk_*.tar.gz ../ && cd ..
+        #sudo tar xvzf mk_*.tar.gz
+        cd ..
+        git clone https://github.com/unifreq/openwrt_packit openwrt
+        sudo cp -r $GITHUB_WORKSPACE/ARMv8/respawn_mks.sh ./
+        sudo chmod +x respawn_mks.sh
+        sudo ./respawn_mks.sh
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
@@ -108,7 +106,7 @@ jobs:
 
     - name: Check Files1
       run: |
-        cd /opt/imgs
+        cd /opt/kernel
         ls
 
     - name: Check Files2
@@ -128,7 +126,7 @@ jobs:
     - name: copy update files
       run: |
         cd /opt/openwrt
-        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
+        sudo cp files/update-amlogic-openwrt.sh tmp/update-amlogic-openwrt.sh
 
     - name: Check Files3
       run: |
@@ -148,8 +146,8 @@ jobs:
         sudo pigz -9 *.img
         #sudo rm N1_*\+o.img
         #sudo rm btld-rk3328.bin
-        wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-sfe/AllPackages.tar.gz
-        rename 's/All/1-All/' All*gz
+        wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-gdq-flowoffload/AllPackages.tar.gz
+        #rename 's/All/1-All/' All*gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -168,7 +166,6 @@ jobs:
         commit: main
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
-          ## 鉴于N1用户群庞大，特单独开此release
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:gdq是高大全版和f大固件集成软件相差无几，mini是精简版。+o版为flowoffload加速,+版为sfe加速)
           N1在线升级方法：
@@ -225,20 +222,18 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
-        cd /opt
-        sudo rm -rf Armbian_*
+        sudo mkdir /opt/kernel
+        cd /opt/kernel
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo tar xvzf *.tar.gz
-        sudo mkdir imgs
-        sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
-        #sudo xz -d Armbian*Beike*\+\.img\.xz
-        #sudo xz -d Armbian*Beike*\+o*
-        #sudo xz -d Armbian*L1*\+\.img\.xz
-        #sudo xz -d Armbian*L1*\+o*
-        sudo mv *.img imgs
+        #sudo cp mk_*.tar.gz ../ && cd ..
+        #sudo tar xvzf mk_*.tar.gz
+        cd ..
+        git clone https://github.com/unifreq/openwrt_packit openwrt
+        sudo cp -r $GITHUB_WORKSPACE/ARMv8/respawn_mks.sh ./
+        sudo chmod +x respawn_mks.sh
+        sudo ./respawn_mks.sh
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
@@ -256,7 +251,7 @@ jobs:
 
     - name: Check Files1
       run: |
-        cd /opt/imgs
+        cd /opt/kernel
         ls
 
     - name: Check Files2
@@ -309,7 +304,6 @@ jobs:
         commit: main
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
-          ## 鉴于N1用户群庞大，特单独开此release
           默认IP：192.168.1.1 默认密码： password
           Openwrt🚀(注:gdq是高大全版和f大固件集成软件相差无几，mini是精简版。+o版为flowoffload加速,+版为sfe加速)
           N1在线升级方法：

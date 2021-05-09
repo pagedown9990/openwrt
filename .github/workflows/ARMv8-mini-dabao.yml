@@ -12,8 +12,8 @@ on:
         description: 'The minimum runs to keep for each workflow.'
         required: true
         default: 6
- # schedule:
-  #  - cron: 0 23 * * *
+  schedule:
+    - cron: 0 23 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -84,22 +84,18 @@ jobs:
     - name: Download and organize files
       #if: steps.opwenwrtcache.outputs.cache-hit != 'true'
       run: |
-        cd /opt
-        sudo rm -rf Armbian_*
+        sudo mkdir /opt/kernel
+        cd /opt/kernel
         sudo wget -P $GITHUB_WORKSPACE/ARMv8 $getimgs
         sudo chmod +x $GITHUB_WORKSPACE/$Get_Imgs_SH
         sudo $GITHUB_WORKSPACE/$Get_Imgs_SH
-        sudo tar xvzf *.tar.gz
-        sudo mkdir imgs
-        sudo xz -d Armbian*Aml*\+\.img\.xz
-        sudo xz -d Armbian*Aml*\+o*
-        sudo xz -d Armbian*Beike*\+\.img\.xz
-        sudo xz -d Armbian*Beike*\+o*
-        sudo xz -d Armbian*L1*\+\.img\.xz
-        sudo xz -d Armbian*L1*\+o*
-        sudo xz -d Armbian*VPlus*\+\.img\.xz
-        sudo xz -d Armbian*VPlus*\+o*
-        sudo mv *.img imgs
+        #sudo cp mk_*.tar.gz ../ && cd ..
+        #sudo tar xvzf mk_*.tar.gz
+        cd ..
+        git clone https://github.com/unifreq/openwrt_packit openwrt
+        sudo cp -r $GITHUB_WORKSPACE/ARMv8/respawn_mks.sh ./
+        sudo chmod +x respawn_mks.sh
+        sudo ./respawn_mks.sh
         cd /opt/openwrt
         sudo mkdir sfe && cd sfe
         sudo rm -rf openwrt-armvirt-64-*
@@ -117,7 +113,7 @@ jobs:
 
     - name: Check Files1
       run: |
-        cd /opt/imgs
+        cd /opt/kernel
         ls
 
     - name: Check Files2
@@ -136,29 +132,30 @@ jobs:
         sudo ./mk_rk3328_beikeyun.sh
         sudo ./mk_rk3328_l1pro_sfe.sh
         sudo ./mk_rk3328_l1pro.sh
-        sudo ./mk_s905d_n1_sfe.sh
-        sudo ./mk_s905d_n1.sh
-        #sudo ./mk_s905x2_x96max_sfe.sh
-        #sudo ./mk_s905x2_x96max.sh
+        #sudo ./mk_s905d_n1_sfe.sh
+        #sudo ./mk_s905d_n1.sh
+        sudo ./mk_s905x2_x96max_sfe.sh
+        sudo ./mk_s905x2_x96max.sh
         sudo ./mk_s905x3_multi_sfe.sh
         sudo ./mk_s905x3_multi.sh
         sudo ./mk_s912_zyxq_sfe.sh
         sudo ./mk_s912_zyxq.sh
-        #sudo ./mk_s922x_gtking_sfe.sh
-        #sudo ./mk_s922x_gtking.sh
+        sudo ./mk_s922x_gtking_sfe.sh
+        sudo ./mk_s922x_gtking.sh
         echo "::set-output name=status::success"
 
     - name: copy update files
       run: |
         cd /opt/openwrt
-        sudo cp files/update-amlogic-openwrt.sh tmp/z-update-amlogic-openwrt.sh
-        sudo cp files/update-beikeyun-openwrt.sh tmp/z-update-beikeyun-openwrt.sh
-        sudo cp files/update-l1pro-openwrt.sh tmp/z-update-l1pro-openwrt.sh
-        sudo cp files/update-vplus-openwrt.sh tmp/z-update-vplus-openwrt.sh
+        sudo cp files/update-amlogic-openwrt.sh tmp/update-amlogic-openwrt.sh
+        sudo cp files/update-beikeyun-openwrt.sh tmp/update-beikeyun-openwrt.sh
+        sudo cp files/update-l1pro-openwrt.sh tmp/update-l1pro-openwrt.sh
+        sudo cp files/update-vplus-openwrt.sh tmp/update-vplus-openwrt.sh
 
     - name: Check Files3
       run: |
         cd /opt/openwrt/tmp
+        rename 's/openwrt/mini-openwrt/' openwrt*img
         ls
 
     - name: pigz -9
@@ -171,8 +168,8 @@ jobs:
         #sudo pigz -9 -k *.img
         sudo pigz -9 *.img
         #sudo rm N1_*\+o.img
-        sudo rm btld-rk3328.bin
-        wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-mini-sfe/AllPackages.tar.gz
+        #sudo rm btld-rk3328.bin
+        wget https://github.com/hibuddies/Actions-OpenWrt/releases/download/ARMv8-mini-flowoffload/AllPackages.tar.gz
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
